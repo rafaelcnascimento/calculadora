@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Faculdade CNEC Santo Ângelo</title>
+    <meta charset="utf-8">
+    <link rel="icon" href="http://cnecsan.cnec.br/wp-content/themes/cnec-mantenedora/favicon/favicon-16x16.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet" >
+    <!-- -- Ajax e JS -- -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<style type="text/css">
+    body{
+        font-family: 'Open Sans';
+        background-color: #DBDCEA;
+        font-size: 14px;
+    }
+
+    .top{
+        color: white;
+        margin-left: 435px;
+        margin-top: 6px;
+    }
+
+    a:visited{
+      color:white;
+    }
+
+    .local{
+        color: white;
+        margin-top: 14px;
+        margin-left: 620px; 
+    }
+
+    .logo{
+        width: 300px; 
+    }
+
+    .btn-primary.custom-btn {
+      background-color: #2D3073;
+      border-color: #2D3073;
+    }
+
+    /* Sticky footer styles
+    -------------------------------------------------- */
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+    body {
+      margin-bottom: 60px; /* Margin bottom by footer height */
+    }
+    .footer {
+      position: absolute;
+      color: white;
+      bottom: 0;
+      width: 100%;
+      height: 60px; /* Set the fixed height of the footer here */
+      line-height: 40px; /* Vertically center the text there */
+      background-color: #2D3073;
+    }
+
+
+    /* Custom page CSS
+    -------------------------------------------------- */
+    /* Not required for template or sticky footer method. */
+
+    .container {
+      width: auto;
+      max-width: 780px;
+      padding: 0 15px;
+    }
+
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-sm" style="background-color: #2D3073; height: 30px;">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-item nav-link active top" href="http://cnecsan.cnec.br/"><i class="fa fa-home"></i> Página Inicial</a>
+            </li>
+            <li class="nav-item">
+               <p class="local">VOCÊ ESTÁ EM: <strong>Faculdade CNEC Santo Ângelo</strong></p>
+            </li>
+        </ul>    
+    </nav>
+    <br>
+    <center>
+        <div class="titulo">
+            <img src="logo.png" class="logo">
+            <br>
+            <br>
+            <h1>Calculadora de Notas</h1>
+        </div>    
+        
+        <table class="borderless">
+            <thead>
+                <tr>
+                    <th>AV1</th>
+                    <th>AV2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input id="av1" type="text" class="form-control" placeholder="Nota sobre 10" onclick="this.select()">
+                    </td>
+                    <td>
+                        <input id="av2" type="text" class="form-control" placeholder="Nota sobre 10" onclick="this.select()">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <button id="calcular" class="btn btn-primary custom-btn">
+            Calcular
+        </button>
+
+        <div id="resultado">    
+        </div>   
+
+        <br>
+        <h3>Como utilizar:</h3>
+        <div style="font-size: 16px; text-align: justify; margin-left: 30% " >
+           <li>Preencha AV1 e AV2 para calcular a sua média e nota necessária na AV3(Substitutiva)</li>
+           <li>Preencha AV1 ou AV2 para calcular a nota necessária na outra avaliação para alcançar a média</li>
+        </div>    
+        <br>
+        <h3>Regras do novo método de avaliação:</h3>
+        <div style="font-size: 16px; text-align: justify; margin-left: 30% " >
+           <li>A média para aprovação é 6</li>
+           <li>Serão três avaliações: AV1, AV2 e AV3(Substitutiva)</li>
+           <li>Caso as notas na AV1 e AV2 sejam ambas inferiores a 4 o aluno está automaticamente reprovado</li>
+           <li>O peso do Projeto Integrador é de 2 pontos na AV2</li>
+        </div>    
+    </center>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Desenvolvido pelo acadêmico Rafael Nascimento do curso de <b>Análise e Desenvolvimento de Sistemas</b></p>
+        </div>
+    </footer>
+</body>
+</html>
+
+<script>
+    $('#calcular').on('click', function() {
+        var av1 = parseFloat($("#av1").val());
+        var av2 = parseFloat($("#av2").val());
+        var media = (av1 + av2)/2;
+        var nota;
+        var av;
+
+        if (!av1 && !av2) {
+            alert ('Preenche ao menos um campo');
+            return false;
+        }
+
+        if (isNaN(av1) && av1 ||  isNaN(av2) && av2 ) {
+            alert("Use apenas numeros");
+            return false;
+        }
+
+        if (av1 > 10 || av2 > 10 || av1 < 0 || av2 < 0 ) {
+            alert("As notas devem ser entre 0 e 10");
+            return false;
+        }
+
+        if (av1 < 4 && av2 < 4) {
+            $('#resultado').html('<br><h3 style="color: red;">Reprovado, sem direito à AV3(Substitutiva)</h3>');
+            return false;
+        }
+
+        if (media >= 6) {
+            $('#resultado').html('<br><h3 style="color: green;">Sua média é '+parseFloat(media).toFixed(2)+' <br>Aprovado</h3>');
+            return false;
+        }
+
+        if (media < 6) {
+            if (av1 > av2) {
+                nota = 12 - av1;
+            } else {
+                nota = 12 - av2
+            }
+            $('#resultado').html('<br><h3 style="color: blue;">Sua média é '+parseFloat(media).toFixed(2)+'<br>Você precisa de '+parseFloat(nota).toFixed(2)+' na AV3(Substitutiva) para ser aprovado</h3>');
+            return false;
+        }
+
+        if (!av1 || !av2) {
+            if (!av1) {
+                nota = 12 - av2;
+                av = 'AV1';
+            } else {
+                nota = 12 - av1
+                av = 'AV2';
+            }
+            $('#resultado').html('<br><h3 style="color: blue;">Você precisa de '+parseFloat(nota).toFixed(2)+' na '+av+' para ser aprovado</h3>');
+            return false;
+        }
+    })
+</script>
+
