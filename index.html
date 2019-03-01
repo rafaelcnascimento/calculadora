@@ -149,8 +149,8 @@
 
 <script>
     $('#calcular').on('click', function() {
-        var av1 = parseFloat($("#av1").val());
-        var av2 = parseFloat($("#av2").val());
+        var av1 = ponto($("#av1").val());
+        var av2 = ponto($("#av2").val());
         var media = (av1 + av2)/2;
         var nota;
         var av;
@@ -176,7 +176,7 @@
         }
 
         if (media >= 6) {
-            $('#resultado').html('<br><h3 style="color: green;">Sua média é '+parseFloat(media).toFixed(2)+' <br>Aprovado</h3>');
+            $('#resultado').html('<br><h3 style="color: green;">Sua média é '+virgula(parseFloat(media).toFixed(2))+' <br>Aprovado</h3>');
             return false;
         }
 
@@ -186,7 +186,7 @@
             } else {
                 nota = 12 - av2
             }
-            $('#resultado').html('<br><h3 style="color: blue;">Sua média é '+parseFloat(media).toFixed(2)+'<br>Você precisa de '+parseFloat(nota).toFixed(2)+' na AV3(Substitutiva) para ser aprovado</h3>');
+            $('#resultado').html('<br><h3 style="color: blue;">Sua média é '+virgula(parseFloat(media).toFixed(2))+'<br>Você precisa de '+virgula(parseFloat(nota).toFixed(2))+' na AV3(Substitutiva) para ser aprovado</h3>');
             return false;
         }
 
@@ -198,8 +198,20 @@
                 nota = 12 - av1
                 av = 'AV2';
             }
-            $('#resultado').html('<br><h3 style="color: blue;">Você precisa de '+parseFloat(nota).toFixed(2)+' na '+av+' para ser aprovado</h3>');
+            $('#resultado').html('<br><h3 style="color: blue;">Você precisa de '+virgula(parseFloat(nota).toFixed(2))+' na '+av+' para ser aprovado</h3>');
             return false;
+        }
+
+        function ponto(num) {
+            if (num.includes(',')) {
+                return parseFloat(num.replace(',','.'));
+            } else {
+                return parseFloat(num);
+            }
+        } 
+
+        function virgula(num) {
+            return num.replace('.',',')
         }
     })
 </script>
