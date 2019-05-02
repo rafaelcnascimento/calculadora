@@ -170,7 +170,12 @@
                 return false;
             }
 
-            if (!regex.test(av1) || !regex.test(av1)) {
+            if (!regex.test(av1)) {
+                alert("Use apenas numeros");
+                return false;
+            }
+
+            if (!regex.test(av2)) {
                 alert("Use apenas numeros");
                 return false;
             }
