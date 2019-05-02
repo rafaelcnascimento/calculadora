@@ -153,75 +153,93 @@
         }
     });
     $('#calcular').on('click', function() {
-            var av1 = ponto($("#av1").val());
-            var av2 = ponto($("#av2").val());
-            var media = (av1 + av2)/2;
-            var nota;
-            var av;
-            var regex = new RegExp('^[0-9]{1,2}([,.][0-9]{1,2})?$');
+        var av1 = ponto($("#av1").val());
+        var av2 = ponto($("#av2").val());
+        var media = (av1 + av2)/2;
+        var nota;
+        var av;
+        var regex = new RegExp('^[0-9]{1,2}([,.][0-9]{1,2})?$');
 
-            if (!$("#av1").val() && !$("#av2").val()) {
-                alert ('Preencha ao menos um campo');
-                return false;
-            }
+        if (!$("#av1").val() && !$("#av2").val()) {
+            alert ('Preencha ao menos um campo');
+            return false;
+        }
 
-            if (av1 > 10 || av2 > 10 || av1 < 0 || av2 < 0 ) {
-                alert("As notas devem ser entre 0 e 10");
-                return false;
-            }
+        if (av1 > 10 || av2 > 10 || av1 < 0 || av2 < 0 ) {
+            alert("As notas devem ser entre 0 e 10");
+            return false;
+        }
 
+        if ($("#av1").val()) {
             if (!regex.test(av1)) {
                 alert("Use apenas numeros");
                 return false;
             }
+        }
 
+        if ($("#av2").val()) {
             if (!regex.test(av2)) {
                 alert("Use apenas numeros");
                 return false;
             }
+        }
 
-            if (av1 < 4 && av2 < 4) {
-                $('#resultado').html('<br><h3 style="color: red;">Reprovado, sem direito à AV3(Substitutiva)</h3>');
-                return false;
+        // if (!regex.test(av2)) {
+        //     alert("Use apenas numeros");
+        //     return false;
+        // }
+
+        if (av1 < 4 && av2 < 4) {
+            $('#resultado').html('<br><h3 style="color: red;">Reprovado, sem direito à AV3(Substitutiva)</h3>');
+            return false;
+        }
+
+        if (media >= 6) {
+            $('#resultado').html('<br><h3 style="color: green;">Sua média é '+virgula(parseFloat(media).toFixed(2))+' <br>Aprovado</h3>');
+            return false;
+        }
+
+        if (media < 6) {
+            if (av1 > av2) {
+                nota = 12 - av1;
+            } else {
+                nota = 12 - av2
+            }
+            $('#resultado').html('<br><h3 style="color: blue;">Sua média é '+virgula(parseFloat(media).toFixed(2))+'<br>Você precisa de '+virgula(parseFloat(nota).toFixed(2))+' na AV3(Substitutiva) para ser aprovado</h3>');
+            return false;
+        }
+
+        if (!av1 || !av2) {
+            if (!av1) {
+                nota = 12 - av2;
+                av = 'AV1';
+            } else {
+                nota = 12 - av1
+                av = 'AV2';
             }
 
-            if (media >= 6) {
-                $('#resultado').html('<br><h3 style="color: green;">Sua média é '+virgula(parseFloat(media).toFixed(2))+' <br>Aprovado</h3>');
-                return false;
-            }
-
-            if (media < 6) {
-                if (av1 > av2) {
-                    nota = 12 - av1;
-                } else {
-                    nota = 12 - av2
-                }
-                $('#resultado').html('<br><h3 style="color: blue;">Sua média é '+virgula(parseFloat(media).toFixed(2))+'<br>Você precisa de '+virgula(parseFloat(nota).toFixed(2))+' na AV3(Substitutiva) para ser aprovado</h3>');
-                return false;
-            }
-
-            if (!av1 || !av2) {
-                if (!av1) {
-                    nota = 12 - av2;
-                    av = 'AV1';
-                } else {
-                    nota = 12 - av1
-                    av = 'AV2';
-                }
+            if(nota > 10) {
+                $('#resultado').html('<br><h3 style="color: purple;">Não é possível ser aprovado sem realizar a AV3(Substitutiva)<br>É necessário nota superior a 4 na AV2 para não ser reprovado automaticamente</h3>');
+            } else {
                 $('#resultado').html('<br><h3 style="color: blue;">Você precisa de '+virgula(parseFloat(nota).toFixed(2))+' na '+av+' para ser aprovado</h3>');
-                return false;
-            }
-
-            function ponto(num) {
-                if (num.includes(',')) {
-                    return parseFloat(num.replace(',','.'));
-                } else {
-                    return parseFloat(num);
+                if (nota > 8) {
+                    $('#resultado').append('<h3 style="color: purple;">É necessário nota superior a 4 na AV2 para não ser reprovado automaticamente</h3>')
                 }
-            } 
-
-            function virgula(num) {
-                return num.replace('.',',')
             }
-        })
+           
+            return false;
+        }
+
+        function ponto(num) {
+            if (num.includes(',')) {
+                return parseFloat(num.replace(',','.'));
+            } else {
+                return parseFloat(num);
+            }
+        } 
+
+        function virgula(num) {
+            return num.replace('.',',')
+        }
+    })
 </script>
