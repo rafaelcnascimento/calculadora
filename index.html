@@ -27,6 +27,11 @@
         color: black;
     }
 
+    #container{
+        min-height:100%;
+        position:relative;
+    }
+
     .top{
         color: white;
         margin-left: 260px;
@@ -52,15 +57,16 @@
       border-color: #2D3073;
     }
 
-    .footer {
-      position: absolute;
+/*    .footer {
+      position: relative;
       right: 0;
       bottom: 0;
       left: 0;
       text-align: center;
-    }
+    }*/
 
 </style>
+<!-- CSS é o diabo -->
 <body class="">
     <header>
         <div class="topnav">
@@ -121,13 +127,13 @@
 
         <br>
         <h3>Como utilizar:</h3>
-               <div style="font-size: 16px; text-align: justify; margin-left: 30% " >
+               <div style="font-size: 16px; text-align: justify;margin: auto; width: 60% " >
                   <li>Preencha AV1 e AV2 para calcular a sua média e nota necessária na AV3(Substitutiva)</li>
                   <li>Preencha AV1 ou AV2 para calcular a nota necessária na outra avaliação para alcançar a média</li>
                </div>    
                <br>
                <h3>Regras do novo método de avaliação:</h3>
-               <div style="font-size: 16px; text-align: justify; margin-left: 30% " >
+               <div style="font-size: 16px; text-align: justify;margin: auto; width: 60% " >
                   <li>A média para aprovação é 6</li>
                   <li>Serão três avaliações: AV1, AV2 e AV3(Substitutiva)</li>
                   <li>Caso as notas na AV1 e AV2 sejam ambas inferiores a 4 o aluno está automaticamente reprovado</li>
@@ -135,13 +141,6 @@
                </div>    
     </center>
 
-    <footer class="footer">
-           <div class="container">
-               <p>Desenvolvido pelo acadêmico Rafael Nascimento do curso de <b>Análise e Desenvolvimento de Sistemas</b></p>
-           </div>
-
-       </footer>
- 
 </body>
 
 </html>
