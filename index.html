@@ -49,7 +49,7 @@
     }
 
     .logo{
-        width: 300px; 
+        height: 100px; 
     }
 
     .btn-primary.custom-btn {
@@ -57,13 +57,20 @@
       border-color: #2D3073;
     }
 
-/*    .footer {
-      position: relative;
+    @media screen and (max-width: 1280px) {
+     .footer{
+         visibility: hidden;
+         display: none;
+     }
+    }
+
+    .footer {
+      position: absolute;
       right: 0;
       bottom: 0;
       left: 0;
       text-align: center;
-    }*/
+    }
 
 </style>
 <!-- CSS é o diabo -->
@@ -93,8 +100,8 @@
     <br>
     <center>
         <div class="titulo">
+            <img src="logo-curso.png" class="logo">
             <img src="logo.png" class="logo">
-            <br>
             <br>
             <h1>Calculadora de Notas</h1>
         </div>    
@@ -127,19 +134,26 @@
 
         <br>
         <h3>Como utilizar:</h3>
-               <div style="font-size: 16px; text-align: justify;margin: auto; width: 60% " >
-                  <li>Preencha AV1 e AV2 para calcular a sua média e nota necessária na AV3(Substitutiva)</li>
-                  <li>Preencha AV1 ou AV2 para calcular a nota necessária na outra avaliação para alcançar a média</li>
-               </div>    
-               <br>
-               <h3>Regras do novo método de avaliação:</h3>
-               <div style="font-size: 16px; text-align: justify;margin: auto; width: 60% " >
-                  <li>A média para aprovação é 6</li>
-                  <li>Serão três avaliações: AV1, AV2 e AV3(Substitutiva)</li>
-                  <li>Caso as notas na AV1 e AV2 sejam ambas inferiores a 4 o aluno está automaticamente reprovado</li>
-                  <li>O peso do Projeto Integrador é de 2 pontos na AV2</li>
-               </div>    
+            <div style="font-size: 16px; text-align: justify;margin: auto; width: 60% " >
+              <li>Preencha AV1 e AV2 para calcular a sua média e nota necessária na AV3(Substitutiva)</li>
+              <li>Preencha AV1 ou AV2 para calcular a nota necessária na outra avaliação para alcançar a média</li>
+            </div>    
+            <br>
+            <h3>Regras do novo método de avaliação:</h3>
+            <div style="font-size: 16px; text-align: justify;margin: auto; width: 60% " >
+              <li>A média para aprovação é 6</li>
+              <li>Serão três avaliações: AV1, AV2 e AV3(Substitutiva)</li>
+              <li>Caso as notas na AV1 e AV2 sejam ambas inferiores a 4 o aluno está automaticamente reprovado</li>
+              <li>O peso do Projeto Integrador é de 2 pontos na AV2</li>
+            </div>    
     </center>
+
+    <footer class="footer">
+       <div class="container">
+           <p>Desenvolvido pelo acadêmico Rafael Nascimento do curso de <b>Análise e Desenvolvimento de Sistemas</b></p>
+       </div>
+
+   </footer>
 
 </body>
 
@@ -182,11 +196,6 @@
                 return false;
             }
         }
-
-        // if (!regex.test(av2)) {
-        //     alert("Use apenas numeros");
-        //     return false;
-        // }
 
         if (av1 < 4 && av2 < 4) {
             $('#resultado').html('<br><h3 style="color: red;">Reprovado, sem direito à AV3(Substitutiva)</h3>');
